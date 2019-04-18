@@ -12,14 +12,14 @@ npm run react-dev (webpack --watch -d)
 npm start (node index.js not nodemon index.js)
 ```
 
-##CRUD API
+## CRUD API
 | Endpoint                        | Type      | Operation                 |
 |---------------------------------|-----------|---------------------------|
 | `/api/stocks/:stockID/ratings`  | GET       | Get rating                |
-| `/api/stocks/ratings/`          | POST      | Add rating                |
+| `/api/stocks/:stockID/ratings`  | POST      | Add rating                |
 | `/api/stocks/:stockID/ratings`  | PATCH     | Update rating             |
 | `/api/stocks/:stockID/ratings`  | DELETE    | Delete rating             |
 | `/api/stocks/:stockID/history`  | GET       | Get history               |
-| `/api/stocks/history/`          | POST      | Add history               |
+| `/api/stocks/:stockID/history`  | POST      | Add history               |
 | `/api/stocks/:stockID/history`  | PATCH     | Update history            |
 | `/api/stocks/:stockID/history`  | DELETE    | Delete history            |
