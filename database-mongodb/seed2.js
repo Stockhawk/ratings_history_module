@@ -1,118 +1,40 @@
 const faker = require('faker');
-const db = require('./index.js');
-const Purchase = require('./Stock2.js');
+const file = require("fs").createWriteStream("./data2.csv");
 
-const symbolsNames = [
-  ['MSFT', 'Microsoft Corporation'],
-  ['AAPL', 'Apple Inc.'],
-  ['FB', 'Facebook, Inc.'],
-  ['BABA', 'Alibaba Group Holding Limited'],
-  ['XOM', 'Exxon Mobil Corporation'],
-  ['V', 'Visa Inc.'],
-  ['JPM', 'JPMorgan Chase & Co.'],
-  ['BAC', 'Bank of America Corporation'],
-  ['VZ', 'Verizon Communications Inc.'],
-  ['INTC', 'Intel Corporation'],
-  ['WFC', 'Wells Fargo & Company'],
-  ['PFE', 'Pfizer Inc.'],
-  ['CSCO', 'Cisco Systems, Inc.'],
-  ['T', 'AT&T Inc.'],
-  ['MRK', 'Merck & Co., Inc.'],
-  ['BA', 'The Boeing Company'],
-  ['TSM', 'Taiwan Semiconductor Manufacturing Company Limited'],
-  ['KO', 'The Coca-Cola Company'],
-  ['DIS', 'The Walt Disney Company'],
-  ['ORCL', 'Oracle Corporation'],
-  ['CMCSA', 'Comcast Corporation'],
-  ['NFLX', 'Netflix, Inc.'],
-  ['C', 'Citigroup Inc.'],
-  ['NKE', 'NIKE, Inc.'],
-  ['LLY', 'Eli Lilly and Company'],
-  ['CRM', 'salesforce.com, inc.'],
-  ['DWDP', 'DowDuPont Inc.'],
-  ['NVDA', 'NVIDIA Corporation'],
-  ['MO', 'Altria Group, Inc.'],
-  ['PBR-A', 'Petróleo Brasileiro S.A. - Petrobras'],
-  ['PBR', 'Petróleo Brasileiro S.A. - Petrobras'],
-  ['SBUX', 'Starbucks Corporation'],
-  ['GE', 'General Electric Company'],
-  ['GILD', 'Gilead Sciences, Inc.'],
-  ['BMY', 'Bristol-Myers Squibb Company'],
-  ['COP', 'ConocoPhillips'],
-  ['USB', 'U.S. Bancorp'],
-  ['SAN', 'Banco Santander, S.A.'],
-  ['MS', 'Morgan Stanley'],
-  ['MDLZ', 'Mondelez International, Inc.'],
-  ['CVS', 'CVS Health Corporation'],
-  ['ABEV', 'Ambev S.A.'],
-  ['QCOM', 'QUALCOMM Incorporated'],
-  ['FOXA', 'Fox Corporation'],
-  ['VALE', 'Vale S.A.'],
-  ['BBD', 'Banco Bradesco S.A.'],
-  ['RIO', 'Rio Tinto Group'],
-  ['SLB', 'Schlumberger Limited'],
-  ['WBA', 'Walgreens Boots Alliance, Inc.'],
-  ['LYG', 'Lloyds Banking Group plc'],
-  ['SCHW', 'The Charles Schwab Corporation'],
-  ['BSX', 'Boston Scientific Corporation'],
-  ['GM', 'General Motors Company'],
-  ['ITUB', 'Itaú Unibanco Holding S.A.'],
-  ['OXY', 'Occidental Petroleum Corporation'],
-  ['TSLA', 'Tesla, Inc.'],
-  ['BIIB', 'Biogen Inc.'],
-  ['KMI', 'Kinder Morgan, Inc.'],
-  ['UBS', 'UBS Group AG'],
-  ['MU', 'Micron Technology, Inc.'],
-  ['JD', 'JD.com, Inc.'],
-  ['KHC', 'The Kraft Heinz Company'],
-  ['ET', 'Energy Transfer LP'],
-  ['BBVA', 'Banco Bilbao Vizcaya Argentaria, S.A.'],
-  ['AMAT', 'Applied Materials, Inc.'],
-  ['IBN', 'ICICI Bank Limited'],
-  ['CCL', 'Carnival Corporation'],
-  ['ATVI', 'Activision Blizzard, Inc.'],
-  ['F', 'Ford Motor Company'],
-  ['WMB', 'The Williams Companies, Inc.'],
-  ['BBT', 'BB&T Corporation'],
-  ['EBAY', 'eBay Inc.'],
-  ['DAL', 'Delta Air Lines, Inc.'],
-  ['NOK', 'Nokia Corporation'],
-  ['SQ', 'Square, Inc.'],
-  ['MNST', 'Monster Beverage Corporation'],
-  ['HPQ', 'HP Inc.'],
-  ['AMD', 'Advanced Micro Devices, Inc.'],
-  ['SIRI', 'Sirius XM Holdings Inc.'],
-  ['S', 'Sprint Corporation'],
-  ['GOLD', 'Barrick Gold Corporation'],
-  ['TWTR', 'Twitter, Inc.'],
-  ['HAL', 'Halliburton Company'],
-  ['FDC', 'First Data Corporation'],
-  ['CNC', 'Centene Corporation'],
-  ['APC', 'Anadarko Petroleum Corporation'],
-  ['HPE', 'Hewlett Packard Enterprise Company'],
-  ['NEM', 'Newmont Mining Corporation'],
-  ['FCX', 'Freeport-McMoRan Inc.'],
-  ['CBS', 'CBS Corporation'],
-  ['TEVA', 'Teva Pharmaceutical Industries Limited'],
-  ['DB', 'Deutsche Bank Aktiengesellschaft'],
-  ['IQ', 'iQIYI, Inc.'],
-  ['FITB', 'Fifth Third Bancorp'],
-  ['LEN', 'Lennar Corporation'],
-  ['KEY', 'KeyCorp'],
-  ['DHI', 'D.R. Horton, Inc.'],
-  ['FNMA', 'Federal National Mortgage Association'],
-  ['CFG', 'Citizens Financial Group, Inc.'],
-  ['MYL', 'Mylan N.V.'],
-];
+var createCompanies = function( numOfChar ) {
+  var options = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+  var allPossibilities = [];
+  
+  var roundChoice = function(round, charNumber) {
+    for(var i = 0; i < options.length; i++){
+      round = round + options[i]; 
+      if(charNumber === numOfChar){
+        let stock = [
+          round,
+          round,
+          allPossibilities.length + 100,
+        ];
+        allPossibilities.push(stock);
+      } else {
+        roundChoice(round, charNumber + 1);
+      }
+      round = round.slice(0, -1);
+     }
+   };
+  roundChoice('', 1);
+  return allPossibilities;
+};
 
-for (let i = 0; i < symbolsNames.length; i += 1) {
-  const samplePurchaseDateRange = faker.date.between('2015-03-03', '2019-02-02');
+var symbolsNames = createCompanies(5);
+
+function generateSamplePurchase (i) {
+  const samplePurchaseDateRange = faker.date.between('2013-03-03', '2019-02-02');
   const sampleQuantity = faker.random.number(100);
-
-  const samplePurchase = [{
+  
+  const samplePurchase = {
     symbol: symbolsNames[i][0],
     purchase_id: faker.random.number(12131, 80123),
-    name: symbolsNames[i][1],
+    name: symbolsNames[i][0],
     timeinforce: 'Good for day',
     submitted: samplePurchaseDateRange,
     status: 'filled',
@@ -121,67 +43,24 @@ for (let i = 0; i < symbolsNames.length; i += 1) {
     filledQuantityShares: sampleQuantity,
     filledQuantityPrice: sampleQuantity,
     total: faker.commerce.price(),
-  }];
-
-  const insertSamplePurchase = () => {
-    Purchase.create(samplePurchase)
-      .then(() => db.close())
-      .catch(err => console.log(`Error saving data to database: ${err}`));
   };
+  return samplePurchase;
+} 
 
-  insertSamplePurchase();
-}
+(async() => {
+  console.time('time')
+  for(let i = 0; i < 10000000; i++) {
+    for (let x = 0; x < 3; x++) {
+      const purchase = generateSamplePurchase(i);
+      if (i === 0 && x === 0) {
+        const header = 'symbol,purchase_id,name,timeinforce,submitted,status,enteredQuantity,filled,filledQuantityShares,filledQuantityPrice,total\n';
+        file.write(header);
+      }
+      if(!file.write(`${purchase.symbol},${purchase.purchase_id},${purchase.name},${purchase.timeinforce},${purchase.submitted},${purchase.status},${purchase.enteredQuantity},${purchase.filled},${purchase.filledQuantityShares},${purchase.filledQuantityPrice},${purchase.total}\n`)) {
+        await new Promise(resolve => file.once('drain', resolve));
+      }
+    }
+  }
+})();
+console.timeEnd('time');
 
-for (let i = 0; i < symbolsNames.length; i += 1) {
-  const samplePurchaseDateRange = faker.date.between('2015-03-03', '2019-02-02');
-  const sampleQuantity = faker.random.number(100) + 1;
-
-  const samplePurchase = [{
-    symbol: symbolsNames[i][0],
-    purchase_id: faker.random.number(12131, 80123),
-    name: symbolsNames[i][1],
-    timeinforce: 'Good for day',
-    submitted: samplePurchaseDateRange,
-    status: 'filled',
-    enteredQuantity: sampleQuantity,
-    filled: faker.date.between(samplePurchaseDateRange, '2019-02-02'),
-    filledQuantityShares: sampleQuantity,
-    filledQuantityPrice: sampleQuantity,
-    total: faker.commerce.price(),
-  }];
-
-  const insertSamplePurchase = () => {
-    Purchase.create(samplePurchase)
-      .then(() => db.close())
-      .catch(err => console.log(`Error saving data to database: ${err}`));
-  };
-
-  insertSamplePurchase();
-}
-
-for (let i = 0; i < symbolsNames.length; i += 1) {
-  const samplePurchaseDateRange = faker.date.between('2015-03-03', '2019-02-02');
-  const sampleQuantity = faker.random.number(100) + 1;
-
-  const samplePurchase = [{
-    symbol: symbolsNames[i][0],
-    purchase_id: faker.random.number(12131, 80123),
-    name: symbolsNames[i][1],
-    timeinforce: 'Good for day',
-    submitted: samplePurchaseDateRange,
-    status: 'filled',
-    enteredQuantity: sampleQuantity,
-    filled: faker.date.between(samplePurchaseDateRange, '2019-02-02'),
-    filledQuantityShares: sampleQuantity,
-    filledQuantityPrice: sampleQuantity,
-    total: faker.commerce.price(),
-  }];
-
-  const insertSamplePurchase = () => {
-    Purchase.create(samplePurchase)
-      .then(() => db.close())
-      .catch(err => console.log(`Error saving data to database: ${err}`));
-  };
-
-  insertSamplePurchase();
-}
