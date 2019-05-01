@@ -11,11 +11,11 @@ class RatingsApp extends React.Component {
     this.state = {
       stock: {
         symbol: 'DUMMY',
-        recBuy: 11,
-        recHold: 8,
-        recSell: 20,
-        reviewBuy: 'Dummy Data Taiwan Semiconductor Manufacturing Company Limited local Ergonomic. \n The impactful transform architectures encompassing. \n Overall, granular scale convergence Taiwan Semiconductor Manufacturing Company Limited optimizing',
-        reviewSell: 'Dummy Data B2C target e-tailers local Taiwan Semiconductor Manufacturing Company Limited Ergonomic. \n For B2C implement applications encompassing. \n Hence, B2C target e-tailers Taiwan Semiconductor Manufacturing Company Limited optimizing',
+        recbuy: 11,
+        rechold: 8,
+        recsell: 20,
+        reviewbuy: 'Dummy Data Taiwan Semiconductor Manufacturing Company Limited local Ergonomic. \n The impactful transform architectures encompassing. \n Overall, granular scale convergence Taiwan Semiconductor Manufacturing Company Limited optimizing',
+        reviewsell: 'Dummy Data B2C target e-tailers local Taiwan Semiconductor Manufacturing Company Limited Ergonomic. \n For B2C implement applications encompassing. \n Hence, B2C target e-tailers Taiwan Semiconductor Manufacturing Company Limited optimizing',
       },
       market: 'Bull',
     };
@@ -29,12 +29,14 @@ class RatingsApp extends React.Component {
 
   getStockData() {
     const stockID = window.location.pathname.split('/')[2];
+    console.log(stockID)
     if (!stockID) {
       alert('Please enter a stock ID in the browser window location bar, in the format [host]/[path]/stocks/stockID');
     } else {
       axios.get(`/api/ratings/${stockID}`)
         .then(res => res.data)
         .then((result) => {
+          console.log(result)
           this.setState({
             stock: result[0],
           }, () => console.log('my new state is: ', this.state));

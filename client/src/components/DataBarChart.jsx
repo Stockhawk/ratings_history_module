@@ -5,9 +5,9 @@ import PercentProgress from './PercentProgress';
 
 const DataBarChart = props => (
   <AllBars>
-    <PercentProgress votes={props.stock.recBuy} total={props.stock.recBuy + props.stock.recHold + props.stock.recSell} voteFor="Buy" market={props.market} />
-    <PercentProgress votes={props.stock.recHold} total={props.stock.recBuy + props.stock.recHold + props.stock.recSell} voteFor="Hold" market={props.market} />
-    <PercentProgress votes={props.stock.recSell} total={props.stock.recBuy + props.stock.recHold + props.stock.recSell} voteFor="Sell" market={props.market} />
+    <PercentProgress votes={props.stock.recbuy} total={props.stock.recbuy + props.stock.rechold + props.stock.recsell} voteFor="Buy" market={props.market} />
+    <PercentProgress votes={props.stock.rechold} total={props.stock.recbuy + props.stock.rechold + props.stock.recsell} voteFor="Hold" market={props.market} />
+    <PercentProgress votes={props.stock.recsell} total={props.stock.recbuy + props.stock.rechold + props.stock.recsell} voteFor="Sell" market={props.market} />
   </AllBars>
 );
 
