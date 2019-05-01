@@ -34,7 +34,7 @@ function generateSamplePurchase (i) {
   const samplePurchase = {
     symbol: symbolsNames[i][0],
     purchase_id: faker.random.number(12131, 80123),
-    name: symbolsNames[i][0],
+    name: symbolsNames[i][1],               
     timeinforce: 'Good for day',
     submitted: samplePurchaseDateRange,
     status: 'filled',
@@ -43,24 +43,27 @@ function generateSamplePurchase (i) {
     filledQuantityShares: sampleQuantity,
     filledQuantityPrice: sampleQuantity,
     total: faker.commerce.price(),
+    id: symbolsNames[i][2]
   };
   return samplePurchase;
 } 
 
+
 (async() => {
   console.time('time')
-  for(let i = 0; i < 10000000; i++) {
+  for(let i = 0; i < 10000001; i++) {
     for (let x = 0; x < 3; x++) {
       const purchase = generateSamplePurchase(i);
       if (i === 0 && x === 0) {
-        const header = 'symbol,purchase_id,name,timeinforce,submitted,status,enteredQuantity,filled,filledQuantityShares,filledQuantityPrice,total\n';
+        const header = 'symbol,purchase_id,name,timeinforce,submitted,status,enteredQuantity,filled,filledQuantityShares,filledQuantityPrice,total,id\n';
         file.write(header);
       }
-      if(!file.write(`${purchase.symbol},${purchase.purchase_id},${purchase.name},${purchase.timeinforce},${purchase.submitted},${purchase.status},${purchase.enteredQuantity},${purchase.filled},${purchase.filledQuantityShares},${purchase.filledQuantityPrice},${purchase.total}\n`)) {
+      if(!file.write(`${purchase.symbol},${purchase.purchase_id},${purchase.name},${purchase.timeinforce},"${purchase.submitted}",${purchase.status},${purchase.enteredQuantity},${purchase.filled},${purchase.filledQuantityShares},${purchase.filledQuantityPrice},${purchase.total},${purchase.symbol}${x}\n`)) {
         await new Promise(resolve => file.once('drain', resolve));
       }
     }
   }
 })();
 console.timeEnd('time');
+
 
