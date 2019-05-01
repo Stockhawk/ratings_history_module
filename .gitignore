@@ -10,3 +10,6 @@ package-lock.json
 bundle.js
 bundle.js.html
 coverage/
+newrelic.js
+ratings-history-server.pem
+ratings-review.pem
