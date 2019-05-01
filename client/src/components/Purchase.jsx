@@ -22,10 +22,11 @@ class Purchase extends React.Component {
 
   render() {
     const { purchase } = this.props;
-    const { name, timeinforce, submitted, status, enteredQuantity, filled, filledQuantityShares, filledQuantityPrice, total } = purchase;
+    const { name, timeinforce, submitted, status, enteredquantity, filled, filledquantityshares, filledquantityprice, total } = purchase;
     const submitTime = submitted.toString();
     const filledTime = filled.toString();
 
+    console.log('submitTime' + submitTime)
     if (this.state.expanded === false) {
       return (
         <PurchaseWrapper expanded={this.state.expanded} onClick={e => this.toggleReadMore(e)}>
@@ -36,7 +37,7 @@ class Purchase extends React.Component {
             </TopInfo>
             <TopInfo>
               <div className="bold right">${total}</div>
-              {filledQuantityShares} {filledQuantityShares === 1 ? 'share' : 'shares'} at ${filledQuantityPrice}
+              {filledquantityshares} {filledquantityshares === 1 ? 'share' : 'shares'} at ${filledquantityprice}
             </TopInfo>
           </Expandable>
         </PurchaseWrapper>
@@ -51,7 +52,7 @@ class Purchase extends React.Component {
           </TopInfo>
           <TopInfo>
             <div className="bold right">${total}</div>
-            {filledQuantityShares} {filledQuantityShares === 1 ? 'share' : 'shares'} at ${filledQuantityPrice}
+            {filledquantityshares} {filledquantityshares === 1 ? 'share' : 'shares'} at ${filledquantityprice}
           </TopInfo>
         </Expandable>
 
@@ -78,7 +79,7 @@ class Purchase extends React.Component {
           </Info>
           <Info>
             <div className="key">Entered Quantity</div>
-            <div className="value">{enteredQuantity}</div>
+            <div className="value">{enteredquantity}</div>
           </Info>
           <Info>
             <div className="key">Filled</div>
@@ -86,7 +87,7 @@ class Purchase extends React.Component {
           </Info>
           <Info>
             <div className="key">Filled Quantity</div>
-            <div className="value">{filledQuantityShares} {filledQuantityShares === 1 ? 'share' : 'shares'} at ${filledQuantityPrice}</div>
+            <div className="value">{filledquantityshares} {filledquantityshares === 1 ? 'share' : 'shares'} at ${filledquantityprice}</div>
           </Info>
           <Info>
             <div className="key">Total</div>

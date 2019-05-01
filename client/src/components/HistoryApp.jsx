@@ -15,10 +15,10 @@ class HistoryApp extends React.Component {
           timeinforce: 'Good for day',
           submitted: '2016-09-24T00:51:08',
           status: 'filled',
-          enteredQuantity: 84,
+          enteredquantity: 84,
           filled: '2018-08-23T16:43:24',
-          filledQuantityShares: 84,
-          filledQuantityPrice: 84,
+          filledquantityshares: 84,
+          filledQuantityprice: 84,
           total: 25,
         },
         {
@@ -28,10 +28,10 @@ class HistoryApp extends React.Component {
           timeinforce: 'Good for day',
           submitted: '2016-02-19T10:43:43',
           status: 'filled',
-          enteredQuantity: 72,
+          enteredquantity: 72,
           filled: '2017-05-06T02:31:04',
-          filledQuantityShares: 72,
-          filledQuantityPrice: 14,
+          filledquantityshares: 72,
+          filledquantityprice: 14,
           total: 12.33,
         },
         {
@@ -41,10 +41,10 @@ class HistoryApp extends React.Component {
           timeinforce: 'Good for day',
           submitted: '2010-05-19T10:43:43',
           status: 'filled',
-          enteredQuantity: 1,
+          enteredquantity: 1,
           filled: '2010-05-06T02:31:04',
-          filledQuantityShares: 1,
-          filledQuantityPrice: 140,
+          filledquantityshares: 1,
+          filledquantityprice: 140,
           total: 140.33,
         },
       ],
@@ -61,6 +61,7 @@ class HistoryApp extends React.Component {
     axios.get(`/api/history/${stockID}`)
       .then(res => res.data)
       .then((result) => {
+        console.log(result)
         this.setState({
           purchases: result,
         });
