@@ -8,11 +8,11 @@ const DataSpotlight = props => (
     <TagPercent>
       <FlippedTag />
       &nbsp;
-      {Math.floor(100 * props.stock.recBuy / (props.stock.recBuy + props.stock.recHold + props.stock.recSell))}
+      {Math.floor(100 * props.stock.recbuy / (props.stock.recbuy + props.stock.rechold + props.stock.recsell))}
       %
     </TagPercent>
     <OfNRatings>
-      of {props.stock.recBuy + props.stock.recHold + props.stock.recSell} ratings
+      of {props.stock.recbuy + props.stock.rechold + props.stock.recsell} ratings
     </OfNRatings>
   </Circle>
 );
